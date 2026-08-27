@@ -3,246 +3,255 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoMo Fraud Risk Checker</title>
+    <title>Mobile Money Fraud Risk Calculator</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            background-color: #f0f2f5;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 25px 15px;
+            background-color: #f4f6f9;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
-        .main-card {
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            width: 100%;
-            max-width: 520px;
-            overflow: hidden;
-            border: none;
-        }
-        .header-banner {
-            background-color: #0d6efd;
-            color: #ffffff;
-            padding: 24px 20px;
-            text-align: center;
-        }
-        .header-title {
-            font-size: 1.45rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .header-subtitle {
-            font-size: 0.85rem;
-            opacity: 0.9;
-            margin: 0;
-        }
-        .card-body {
-            padding: 28px 24px;
-        }
-        .form-label {
-            font-weight: 600;
-            color: #333333;
-            font-size: 0.92rem;
-            margin-bottom: 5px;
-        }
-        .form-select {
-            border-radius: 8px;
-            padding: 10px 12px;
-            border: 1px solid #ced4da;
-            font-size: 0.92rem;
-            margin-bottom: 16px;
-        }
-        .form-select:focus {
-            border-color: #0d6efd;
-            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
-        }
-        .btn-calc {
-            background-color: #0d6efd;
-            border: none;
-            border-radius: 8px;
-            padding: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            width: 100%;
+        .header-box {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
-            margin-top: 5px;
-            transition: background-color 0.2s ease;
+            padding: 35px 20px;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 30px;
         }
-        .btn-calc:hover {
-            background-color: #0b5ed7;
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
         }
-        .result-box {
-            display: none;
-            margin-top: 22px;
-            padding: 18px;
-            border-radius: 12px;
-            text-align: center;
+        .risk-gauge {
+            font-size: 3rem;
+            font-weight: 800;
+        }
+        .badge-risk {
+            font-size: 1.1rem;
+            padding: 8px 16px;
+            border-radius: 30px;
+        }
+        .progress {
+            height: 25px;
+            border-radius: 15px;
         }
     </style>
 </head>
 <body>
 
-    <div class="main-card">
-        <!-- Header Banner -->
-        <div class="header-banner">
-            <div class="header-title">
-                <i class="fa-solid fa-shield-halved"></i>
-                <span>MoMo Fraud Risk Checker</span>
+    <!-- Header Section -->
+    <div class="header-box text-center shadow">
+        <h2 class="fw-bold"><i class="fa-solid fa-shield-halved me-2"></i>MoMo Fraud Risk Predictor</h2>
+        <p class="mb-0 text-light opacity-75">Empirical Binary Logistic Regression Risk Model | Department of Computer Science</p>
+    </div>
+
+    <div class="container mb-5">
+        <div class="row g-4">
+            
+            <!-- Left Column: Input Form -->
+            <div class="col-lg-6">
+                <div class="card p-4">
+                    <h5 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-sliders me-2"></i>User Profile & Behavioral Inputs</h5>
+                    <form id="riskForm">
+                        
+                        <!-- 1. Gender -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">1. Gender</label>
+                            <select class="form-select" id="gender" required>
+                                <option value="Male" selected>Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+
+                        <!-- 2. Usage Frequency -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">2. How often do you use Mobile Money?</label>
+                            <select class="form-select" id="usageFreq" required>
+                                <option value="Daily" selected>Daily</option>
+                                <option value="Several times a week">Several times a week</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Rarely">Rarely</option>
+                            </select>
+                        </div>
+
+                        <!-- 3. Fraud Exposure -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">3. Frequency of receiving suspicious calls/SMS?</label>
+                            <select class="form-select" id="exposureFreq" required>
+                                <option value="Never">Never</option>
+                                <option value="Rarely">Rarely</option>
+                                <option value="Occasionally" selected>Occasionally</option>
+                                <option value="Very often">Very often</option>
+                            </select>
+                            <div class="form-text text-muted">Exposure is the strongest empirical risk-elevating factor.</div>
+                        </div>
+
+                        <!-- 4. Verification Habit -->
+                         <div class="mb-3">
+                            <label class="form-label fw-semibold">4. Do you verify recipient names before sending funds?</label>
+                            <select class="form-select" id="verifyHabit" required>
+                                <option value="Always" selected>Always</option>
+                                <option value="Sometimes">Sometimes</option>
+                                <option value="Rarely">Rarely</option>
+                                <option value="Never">Never</option>
+                            </select>
+                        </div>
+
+                        <!-- 5. Awareness Level -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">5. Rate your awareness of MoMo fraud tactics</label>
+                            <select class="form-select" id="awarenessLevel" required>
+                                <option value="High" selected>High Awareness</option>
+                                <option value="Medium">Medium Awareness</option>
+                                <option value="Low">Low Awareness</option>
+                            </select>
+                        </div>
+
+                        <!-- Action Button -->
+                        <button type="button" class="btn btn-primary w-100 py-2 fw-bold shadow-sm" onclick="calculateRisk()">
+                            <i class="fa-solid fa-calculator me-2"></i>Calculate Predicted Risk
+                        </button>
+                    </form>
+                </div>
             </div>
-            <p class="header-subtitle">Empirical 4-Factor Model Powered by Research Data</p>
-        </div>
 
-        <div class="card-body">
-            <form id="checkerForm">
-                
-                <!-- 1. Fraud Exposure (H2) -->
-                <div class="mb-2">
-                    <label class="form-label">1. Frequency of Scam Calls / SMS (Exposure)</label>
-                    <select class="form-select" id="exposureFreq">
-                        <option value="Never">Never</option>
-                        <option value="Rarely">Rarely</option>
-                        <option value="Occasionally" selected>Occasionally</option>
-                        <option value="Very often">Very often</option>
-                    </select>
+            <!-- Right Column: Prediction Results -->
+            <div class="col-lg-6">
+                <div class="card p-4 text-center h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <h5 class="fw-bold mb-3 text-secondary"><i class="fa-solid fa-chart-pie me-2"></i>Assessment Results</h5>
+                        
+                        <!-- Estimated Probability -->
+                        <div class="my-4">
+                            <span class="text-muted text-uppercase fw-semibold" style="letter-spacing: 1px;">Predicted Victimization Risk</span>
+                            <div class="risk-gauge my-2 text-primary" id="riskPercent">50.0%</div>
+                            <span class="badge badge-risk" id="riskBadge">Moderate Risk</span>
+                        </div>
+
+                        <!-- Visual Progress Bar -->
+                        <div class="progress mb-4 bg-light">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="riskBar" role="progressbar" style="width: 50%;"></div>
+                        </div>
+
+                        <!-- Dynamic Feedback Message -->
+                        <div class="alert text-start p-3" id="riskFeedback">
+                            <!-- Feedback injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Model Diagnostic Footnote -->
+                    <div class="border-top pt-3 text-start small text-muted">
+                        <div class="d-flex justify-content-between">
+                            <span><i class="fa-solid fa-check-double text-success me-1"></i> Model AUC: <strong>0.735</strong></span>
+                            <span><i class="fa-solid fa-bullseye text-info me-1"></i> Accuracy: <strong>66.3%</strong></span>
+                            <span><i class="fa-solid fa-users text-secondary me-1"></i> N = <strong>371 Users</strong></span>
+                        </div>
+                    </div>
+
                 </div>
-
-                <!-- 2. Usage Frequency (H1) -->
-                <div class="mb-2">
-                    <label class="form-label">2. Mobile Money Usage Frequency</label>
-                    <select class="form-select" id="usageFreq">
-                        <option value="Daily" selected>Daily</option>
-                        <option value="Several times a week">Several times a week</option>
-                        <option value="Weekly">Weekly</option>
-                        <option value="Rarely">Rarely</option>
-                    </select>
-                </div>
-
-                <!-- 3. Protective Habit (H3) -->
-                <div class="mb-2">
-                    <label class="form-label">3. Verify Recipient Before Sending Funds?</label>
-                    <select class="form-select" id="verifyHabit">
-                        <option value="Always" selected>Always</option>
-                        <option value="Sometimes">Sometimes</option>
-                        <option value="Rarely">Rarely</option>
-                        <option value="Never">Never</option>
-                    </select>
-                </div>
-
-                <!-- 4. Fraud Awareness (H4) -->
-                <div class="mb-3">
-                    <label class="form-label">4. MoMo Fraud Awareness Level</label>
-                    <select class="form-select" id="awarenessLevel">
-                        <option value="High" selected>High Awareness</option>
-                        <option value="Medium">Medium Awareness</option>
-                        <option value="Low">Low Awareness</option>
-                    </select>
-                </div>
-
-                <!-- Action Button -->
-                <button type="button" class="btn btn-calc" onclick="calculateRisk()">
-                    Calculate Fraud Risk
-                </button>
-            </form>
-
-            <!-- Result Box -->
-            <div id="resultBox" class="result-box">
-                <h6 class="text-muted text-uppercase mb-1" style="font-size: 0.8rem; letter-spacing: 0.5px;">Estimated Victimization Probability</h6>
-                <h2 class="fw-bold my-2" id="riskValue">0.0%</h2>
-                <span class="badge px-3 py-2 rounded-pill" id="riskBadge">Low Risk</span>
-                <p class="small text-muted mt-3 mb-0" id="riskDesc"></p>
             </div>
+
         </div>
     </div>
 
-    <!-- Script for Strict 4-Factor Model Calculation -->
-    <script>
-        // Exact regression parameters for the 4-Factor Model
-        const INTERCEPT = -2.248606;
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-        const COEF_EXPOSURE = {
-            "Never": 0.0,
-            "Rarely": 1.458540,
-            "Occasionally": 2.526385,
-            "Very often": 2.204977
+    <!-- Calculation Engine Script -->
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Calculation Engine Script -->
+    <script>
+        // Logistic Regression Model Coefficients
+        const INTERCEPT = -2.423301;
+
+        const COEF_GENDER = {
+            "Male": 0.0,
+            "Female": 0.494354
         };
 
         const COEF_USAGE = {
             "Daily": 0.0,
-            "Several times a week": -0.106799,
-            "Weekly": 0.620396,
-            "Rarely": 0.586350
+            "Several times a week": -0.080158,
+            "Weekly": 0.600440,
+            "Rarely": 0.513435
+        };
+
+        const COEF_EXPOSURE = {
+            "Never": 0.0,
+            "Rarely": 1.407487,
+            "Occasionally": 2.415228,
+            "Very often": 2.139793
         };
 
         const COEF_VERIFY = {
             "Always": 0.0,
-            "Sometimes": 0.770256,
-            "Rarely": 0.077063,
-            "Never": -0.549198
+            "Sometimes": 0.775088,
+            "Rarely": 0.142234,
+            "Never": -0.613872
         };
 
         const COEF_AWARENESS = {
             "Low": 0.0,
-            "Medium": 0.476401,
-            "High": -0.416428
+            "Medium": 0.488957,
+            "High": -0.378621
         };
 
         function calculateRisk() {
-            const exp = document.getElementById("exposureFreq").value;
-            const use = document.getElementById("usageFreq").value;
-            const ver = document.getElementById("verifyHabit").value;
-            const awa = document.getElementById("awarenessLevel").value;
+            const gender = document.getElementById("gender").value;
+            const usage = document.getElementById("usageFreq").value;
+            const exposure = document.getElementById("exposureFreq").value;
+            const verify = document.getElementById("verifyHabit").value;
+            const awareness = document.getElementById("awarenessLevel").value;
 
-            // Log-odds z calculation using only the 4 core constructs
+            // Calculate log-odds (z)
             const z = INTERCEPT 
-                    + (COEF_EXPOSURE[exp] || 0)
-                    + (COEF_USAGE[use] || 0)
-                    + (COEF_VERIFY[ver] || 0)
-                    + (COEF_AWARENESS[awa] || 0);
+                    + (COEF_GENDER[gender] || 0)
+                    + (COEF_USAGE[usage] || 0)
+                    + (COEF_EXPOSURE[exposure] || 0)
+                    + (COEF_VERIFY[verify] || 0)
+                    + (COEF_AWARENESS[awareness] || 0);
 
-            // Logistic probability: P = 1 / (1 + e^-z)
-            const prob = 1 / (1 + Math.exp(-z));
-            const pct = (prob * 100).toFixed(1);
+            // Compute probability
+            const probability = 1 / (1 + Math.exp(-z));
+            const percentage = (probability * 100).toFixed(1);
 
-            const box = document.getElementById("resultBox");
-            const val = document.getElementById("riskValue");
-            const badge = document.getElementById("riskBadge");
-            const desc = document.getElementById("riskDesc");
+            const riskPercentElem = document.getElementById("riskPercent");
+            const riskBadge = document.getElementById("riskBadge");
+            const riskBar = document.getElementById("riskBar");
+            const feedbackElem = document.getElementById("riskFeedback");
 
-            box.style.display = "block";
-            val.innerText = pct + "%";
+            riskPercentElem.innerText = percentage + "%";
+            riskBar.style.width = percentage + "%";
 
-            if (pct < 35) {box.style.backgroundColor = "#e8f5e9";
-                val.style.color = "#2e7d32";
-                badge.className = "badge bg-success";
-                badge.innerText = "Low Risk Profile";
-                desc.innerText = "Strong protective verification habits and minimal scam exposure keep your fraud vulnerability low.";
-            } else if (pct >= 35 && pct < 65) {
-                box.style.backgroundColor = "#fff8e1";
-                val.style.color = "#f57f17";
-                badge.className = "badge bg-warning text-dark";
-                badge.innerText = "Moderate Risk Profile";
-                desc.innerText = "Occasional scam calls or messages elevate your risk. Always confirm recipient identity before approving transfers.";
+            if (percentage < 35) {
+                riskPercentElem.className = "risk-gauge my-2 text-success";
+                riskBadge.className = "badge badge-risk bg-success";
+                riskBadge.innerText = "Low Risk Profile";
+                riskBar.className = "progress-bar bg-success";
+                feedbackElem.className = "alert alert-success text-start p-3";
+                feedbackElem.innerHTML = "<strong><i class='fa-solid fa-circle-check me-2'></i>Strong Protection Habits:</strong> Your low exposure and consistent verification habits provide strong defenses against common MoMo scams.";
+            } else if (percentage >= 35 && percentage < 65) {
+                riskPercentElem.className = "risk-gauge my-2 text-warning";
+                riskBadge.className = "badge badge-risk bg-warning text-dark";
+                riskBadge.innerText = "Moderate Risk Profile";
+                riskBar.className = "progress-bar bg-warning";
+                feedbackElem.className = "alert alert-warning text-start p-3";
+                feedbackElem.innerHTML = "<strong><i class='fa-solid fa-triangle-exclamation me-2'></i>Elevated Vulnerability:</strong> Occasional exposure to suspicious contacts increases your statistical risk. Ensure you always verify names before finalizing transfers.";
             } else {
-                box.style.backgroundColor = "#ffebee";
-                val.style.color = "#c62828";
-                badge.className = "badge bg-danger";
-                badge.innerText = "High Risk Profile";
-                desc.innerText = "Frequent scam contact combined with inconsistent verification significantly multiplies your odds of fraud victimization.";
+                riskPercentElem.className = "risk-gauge my-2 text-danger";
+                riskBadge.className = "badge badge-risk bg-danger";
+                riskBadge.innerText = "High Risk Profile";
+                riskBar.className = "progress-bar bg-danger";
+                feedbackElem.className = "alert alert-danger text-start p-3";
+                feedbackElem.innerHTML = "<strong><i class='fa-solid fa-skull-crossbones me-2'></i>Critical Alert:</strong> High scam exposure combined with inconsistent verification significantly multiplies your odds of falling victim. Never share OTPs or approve unfamiliar prompts.";
             }
         }
 
-        // Run calculation once on load
         window.onload = calculateRisk;
     </script>
 </body>
